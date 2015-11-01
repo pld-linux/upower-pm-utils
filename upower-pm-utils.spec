@@ -4,7 +4,7 @@ Summary:	Power management service with pm-utils backend
 Summary(pl.UTF-8):	Usługa zarządzania energią z wykorzystaniem pm-utils
 Name:		%{orig_name}-pm-utils
 Version:	0.9.23
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Libraries
 Source0:	http://upower.freedesktop.org/releases/%{orig_name}-%{version}.tar.xz
@@ -202,7 +202,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libupower-glib.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libupower-glib.so.1
-%attr(755,root,root) %ghost %{_libdir}/libupower-glib.so.3
+%attr(755,root,root) %{_libdir}/libupower-glib.so.3
 %{_libdir}/girepository-1.0/UPowerGlib-1.0.typelib
 
 %files devel
