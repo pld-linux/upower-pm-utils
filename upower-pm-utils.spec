@@ -38,6 +38,7 @@ Requires:	pm-utils
 Requires:	polkit >= 0.97
 Requires:	systemd-units >= 38
 Requires:	udev-glib >= 1:147
+Requires:	%{name}-libs = %{version}-%{release}
 Provides:	%{orig_name} = %{version}-%{release}
 Obsoletes:	DeviceKit-power < 0.15
 Obsoletes:	UPower < 0.9.8-2
@@ -62,14 +63,6 @@ Requires:	dbus-glib >= 0.76
 Requires:	dbus-libs >= 1.0.0
 Requires:	glib2 >= 1:2.22.0
 Provides:	%{orig_name}-libs = %{version}-%{release}
-Provides:	%{orig_name}-libs = 0.99.0
-%ifarch %{x8664}
-Provides:	libupower-glib.so.3()(64bit)
-%else
-Provides:	libupower-glib.so.3
-%endif
-Obsoletes:	%{orig_name}-libs
-Conflicts:	%{orig_name} < 0.9.18
 
 %description libs
 UPower shared library.
@@ -152,8 +145,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-ln -s libupower-glib.so.1 $RPM_BUILD_ROOT/%{_libdir}/libupower-glib.so.3
-
 %find_lang upower
 
 %clean
@@ -202,7 +193,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libupower-glib.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libupower-glib.so.1
-%attr(755,root,root) %{_libdir}/libupower-glib.so.3
 %{_libdir}/girepository-1.0/UPowerGlib-1.0.typelib
 
 %files devel
