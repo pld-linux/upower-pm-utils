@@ -4,7 +4,7 @@ Summary:	Power management service with pm-utils backend
 Summary(pl.UTF-8):	Usługa zarządzania energią z wykorzystaniem pm-utils
 Name:		%{orig_name}-pm-utils
 Version:	0.9.23
-Release:	5
+Release:	6
 License:	GPL v2+
 Group:		Libraries
 Source0:	http://upower.freedesktop.org/releases/%{orig_name}-%{version}.tar.xz
@@ -32,28 +32,28 @@ BuildRequires:	tar >= 1:1.22
 BuildRequires:	udev-glib-devel >= 1:147
 BuildRequires:	xz
 Requires(post,preun,postun):	systemd-units >= 38
+Requires:	%{name}-libs = %{version}-%{release}
 Requires:	libimobiledevice >= 0.9.7
 Requires:	libplist >= 0.12
 Requires:	pm-utils
 Requires:	polkit >= 0.97
 Requires:	systemd-units >= 38
 Requires:	udev-glib >= 1:147
-Requires:	%{name}-libs = %{version}-%{release}
 Provides:	%{orig_name} = %{version}-%{release}
+Obsoletes:	%{orig_name}
 Obsoletes:	DeviceKit-power < 0.15
 Obsoletes:	UPower < 0.9.8-2
-Obsoletes:	%{orig_name}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 upower provides a daemon, API and command line tools for managing
-power devices attached to the system.
-upower-pm-utils use pm-utils as backend.
+power devices attached to the system. upower-pm-utils use pm-utils as
+backend.
 
 %description -l pl.UTF-8
 upower dostarcza demona, API i narzędzia linii poleceń do zarządzania
-urządzeniami energii dołączonymi do systemu.
-upower-pm-utils wykorzystuje do działania pm-utils.
+urządzeniami energii dołączonymi do systemu. upower-pm-utils
+wykorzystuje do działania pm-utils.
 
 %package libs
 Summary:	UPower shared library
@@ -108,9 +108,12 @@ Summary:	UPower API documentation
 Summary(pl.UTF-8):	Dokumentacja API UPower
 Group:		Documentation
 Requires:	gtk-doc-common
+Obsoletes:	%{orig_name}-apidocs
 Obsoletes:	DeviceKit-power-apidocs
 Obsoletes:	UPower-apidocs
-Obsoletes:	%{orig_name}-apidocs
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 UPower API documentation.
