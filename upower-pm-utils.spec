@@ -3,12 +3,13 @@
 Summary:	Power management service with pm-utils backend
 Summary(pl.UTF-8):	Usługa zarządzania energią z wykorzystaniem pm-utils
 Name:		%{orig_name}-pm-utils
-Version:	0.99.10
-Release:	1
+Version:	0.9.23
+Release:	6
 License:	GPL v2+
 Group:		Libraries
-Source0:	https://gitlab.freedesktop.org/upower/upower/uploads/c438511024b9bc5a904f8775cfc8e4c4/%{orig_name}-%{version}.tar.xz
-# Source0-md5:	ac6b6bee31110fd8478a8e881c40fba6
+Source0:	http://upower.freedesktop.org/releases/%{orig_name}-%{version}.tar.xz
+# Source0-md5:	39cfd97bfaf7d30908f20cf937a57634
+Patch0:		%{orig_name}-battery_range.patch
 URL:		http://upower.freedesktop.org/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake >= 1:1.11
@@ -122,6 +123,7 @@ Dokumentacja API UPower.
 
 %prep
 %setup -q -n %{orig_name}-%{version}
+%patch0 -p1
 
 %build
 %{__gtkdocize}
@@ -167,12 +169,21 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS HACKING NEWS README
 %attr(755,root,root) %{_bindir}/upower
-%attr(755,root,root) %{_libexecdir}/upowerd
+%attr(755,root,root) %{_libdir}/upowerd
 %config(noreplace) %verify(not md5 mtime size) /etc/dbus-1/system.d/org.freedesktop.UPower.conf
 %dir %{_sysconfdir}/UPower
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/UPower/UPower.conf
 %{_datadir}/dbus-1/system-services/org.freedesktop.UPower.service
+%{_datadir}/polkit-1/actions/org.freedesktop.upower.policy
+%{_datadir}/polkit-1/actions/org.freedesktop.upower.qos.policy
 %{systemdunitdir}/upower.service
+%attr(755,root,root) /lib/systemd/system-sleep/notify-upower.sh
+/lib/udev/rules.d/95-upower-battery-recall-dell.rules
+/lib/udev/rules.d/95-upower-battery-recall-fujitsu.rules
+/lib/udev/rules.d/95-upower-battery-recall-gateway.rules
+/lib/udev/rules.d/95-upower-battery-recall-ibm.rules
+/lib/udev/rules.d/95-upower-battery-recall-lenovo.rules
+/lib/udev/rules.d/95-upower-battery-recall-toshiba.rules
 /lib/udev/rules.d/95-upower-csr.rules
 /lib/udev/rules.d/95-upower-hid.rules
 /lib/udev/rules.d/95-upower-wup.rules
@@ -184,7 +195,7 @@ rm -rf $RPM_BUILD_ROOT
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libupower-glib.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libupower-glib.so.3
+%attr(755,root,root) %ghost %{_libdir}/libupower-glib.so.1
 %{_libdir}/girepository-1.0/UPowerGlib-1.0.typelib
 
 %files devel
@@ -193,6 +204,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libupower-glib.la
 %{_datadir}/dbus-1/interfaces/org.freedesktop.UPower.Device.xml
 %{_datadir}/dbus-1/interfaces/org.freedesktop.UPower.KbdBacklight.xml
+%{_datadir}/dbus-1/interfaces/org.freedesktop.UPower.QoS.xml
 %{_datadir}/dbus-1/interfaces/org.freedesktop.UPower.Wakeups.xml
 %{_datadir}/dbus-1/interfaces/org.freedesktop.UPower.xml
 %{_datadir}/gir-1.0/UPowerGlib-1.0.gir
