@@ -1,0 +1,48 @@
+--- upower-0.9.23/configure.ac.orig	2013-10-18 16:59:43.000000000 +0200
++++ upower-0.9.23/configure.ac	2019-05-08 05:33:37.087683032 +0200
+@@ -104,7 +104,6 @@
+ dnl - Extra verbose warning switches
+ dnl ---------------------------------------------------------------------------
+ CPPFLAGS="$CPPFLAGS -DG_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SINGLE_INCLUDES"
+-CPPFLAGS="$CPPFLAGS -DG_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED"
+ CPPFLAGS="$CPPFLAGS -DGDK_MULTIHEAD_SAFE -DGTK_MULTIHEAD_SAFE"
+ CPPFLAGS="$CPPFLAGS -DGSEAL_ENABLE"
+ 
+--- upower-0.9.23/libupower-glib/up-wakeups.c.orig	2013-10-18 16:41:24.000000000 +0200
++++ upower-0.9.23/libupower-glib/up-wakeups.c	2019-05-08 05:49:07.512642488 +0200
+@@ -89,6 +89,7 @@
+ 
+ /* FIXME: GValueArray is deprecated in GLib 2.33+, but we need to convert to
+  * GDBus to get rid of it */
++#pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+ 
+ /**
+@@ -185,7 +186,7 @@
+ 	return array;
+ }
+ 
+-#pragma GCC diagnostic error "-Wdeprecated-declarations"
++#pragma GCC diagnostic pop
+ 
+ /**
+  * up_wakeups_ensure_properties:
+--- upower-0.9.23/libupower-glib/up-device.c.orig	2013-10-18 16:41:24.000000000 +0200
++++ upower-0.9.23/libupower-glib/up-device.c	2019-05-08 05:53:54.321088713 +0200
+@@ -579,6 +579,7 @@
+ 
+ /* FIXME: GValueArray is deprecated in GLib 2.33+, but we need to convert to
+  * GDBus to get rid of it */
++#pragma GCC diagnostic push
+ #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+ 
+ /**
+@@ -748,7 +749,7 @@
+ 	return array;
+ }
+ 
+-#pragma GCC diagnostic error "-Wdeprecated-declarations"
++#pragma GCC diagnostic pop
+ 
+ /*
+  * up_device_set_property:

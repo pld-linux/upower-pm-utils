@@ -1,15 +1,17 @@
+# NOTE: this package is the last version of upower from 0.9.x series, compatible with pm-utils
 %define		orig_name	upower
 
 Summary:	Power management service with pm-utils backend
 Summary(pl.UTF-8):	Usługa zarządzania energią z wykorzystaniem pm-utils
 Name:		%{orig_name}-pm-utils
 Version:	0.9.23
-Release:	6
+Release:	7
 License:	GPL v2+
 Group:		Libraries
 Source0:	http://upower.freedesktop.org/releases/%{orig_name}-%{version}.tar.xz
 # Source0-md5:	39cfd97bfaf7d30908f20cf937a57634
 Patch0:		%{orig_name}-battery_range.patch
+Patch1:		%{orig_name}-glib-deprecated.patch
 URL:		http://upower.freedesktop.org/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake >= 1:1.11
@@ -124,6 +126,7 @@ Dokumentacja API UPower.
 %prep
 %setup -q -n %{orig_name}-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__gtkdocize}
@@ -147,6 +150,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+# obsoleted by pkg-config
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libupower-glib.la
 
 %find_lang upower
 
@@ -201,7 +207,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libupower-glib.so
-%{_libdir}/libupower-glib.la
 %{_datadir}/dbus-1/interfaces/org.freedesktop.UPower.Device.xml
 %{_datadir}/dbus-1/interfaces/org.freedesktop.UPower.KbdBacklight.xml
 %{_datadir}/dbus-1/interfaces/org.freedesktop.UPower.QoS.xml
