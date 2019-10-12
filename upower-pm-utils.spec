@@ -5,7 +5,7 @@ Summary:	Power management service with pm-utils backend
 Summary(pl.UTF-8):	Usługa zarządzania energią z wykorzystaniem pm-utils
 Name:		%{orig_name}-pm-utils
 Version:	0.9.23
-Release:	9
+Release:	10
 Epoch:		1
 License:	GPL v2+
 Group:		Libraries
@@ -35,14 +35,14 @@ BuildRequires:	tar >= 1:1.22
 BuildRequires:	udev-glib-devel >= 1:147
 BuildRequires:	xz
 Requires(post,preun,postun):	systemd-units >= 38
-Requires:	%{name}-libs = %{version}-%{release}
+Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Requires:	libimobiledevice >= 0.9.7
 Requires:	libplist >= 0.12
 Requires:	pm-utils
 Requires:	polkit >= 0.97
 Requires:	systemd-units >= 38
 Requires:	udev-glib >= 1:147
-Provides:	%{orig_name} = %{version}-%{release}
+Provides:	%{orig_name} = %{epoch}:%{version}-%{release}
 Obsoletes:	%{orig_name}
 Obsoletes:	DeviceKit-power < 0.15
 Obsoletes:	UPower < 0.9.8-2
@@ -65,7 +65,7 @@ Group:		Libraries
 Requires:	dbus-glib >= 0.76
 Requires:	dbus-libs >= 1.0.0
 Requires:	glib2 >= 1:2.22.0
-Provides:	%{orig_name}-libs = %{version}-%{release}
+Provides:	%{orig_name}-libs = %{epoch}:%{version}-%{release}
 
 %description libs
 UPower shared library.
@@ -77,11 +77,11 @@ Biblioteka współdzielona UPower.
 Summary:	Header files for UPower library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki UPower
 Group:		Development/Libraries
-Requires:	%{name}-libs = %{version}-%{release}
+Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Requires:	dbus-devel >= 1.0.0
 Requires:	dbus-glib-devel >= 0.76
 Requires:	glib2-devel >= 1:2.22.0
-Provides:	%{orig_name}-devel = %{version}-%{release}
+Provides:	%{orig_name}-devel = %{epoch}:%{version}-%{release}
 Obsoletes:	%{orig_name}-devel
 Obsoletes:	DeviceKit-power-devel
 Obsoletes:	UPower-devel
@@ -96,8 +96,8 @@ Pliki nagłówkowe biblioteki UPower.
 Summary:	Static UPower library
 Summary(pl.UTF-8):	Statyczna biblioteka UPower
 Group:		Development/Libraries
-Requires:	%{orig_name}-devel = %{version}-%{release}
-Provides:	%{orig_name}-static = %{version}-%{release}
+Requires:	%{orig_name}-devel = %{epoch}:%{version}-%{release}
+Provides:	%{orig_name}-static = %{epoch}:%{version}-%{release}
 Obsoletes:	%{orig_name}-static
 
 %description static
