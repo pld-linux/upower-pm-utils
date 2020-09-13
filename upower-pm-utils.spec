@@ -5,7 +5,7 @@ Summary:	Power management service with pm-utils backend
 Summary(pl.UTF-8):	Usługa zarządzania energią z wykorzystaniem pm-utils
 Name:		%{orig_name}-pm-utils
 Version:	0.9.23
-Release:	10
+Release:	11
 Epoch:		1
 License:	GPL v2+
 Group:		Libraries
@@ -13,6 +13,7 @@ Source0:	http://upower.freedesktop.org/releases/%{orig_name}-%{version}.tar.xz
 # Source0-md5:	39cfd97bfaf7d30908f20cf937a57634
 Patch0:		%{orig_name}-battery_range.patch
 Patch1:		%{orig_name}-glib-deprecated.patch
+Patch2:		%{orig_name}-libplist.patch
 URL:		http://upower.freedesktop.org/
 BuildRequires:	autoconf >= 2.65
 BuildRequires:	automake >= 1:1.11
@@ -25,7 +26,7 @@ BuildRequires:	gobject-introspection-devel >= 0.10.0
 BuildRequires:	gtk-doc >= 1.11
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	libimobiledevice-devel >= 0.9.7
-BuildRequires:	libplist-devel >= 0.12
+BuildRequires:	libplist-devel >= 2.2.0
 BuildRequires:	libtool >= 2:2
 BuildRequires:	libusb-devel >= 1.0.0
 BuildRequires:	pkgconfig
@@ -37,7 +38,7 @@ BuildRequires:	xz
 Requires(post,preun,postun):	systemd-units >= 38
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Requires:	libimobiledevice >= 0.9.7
-Requires:	libplist >= 0.12
+Requires:	libplist >= 2.2.0
 Requires:	pm-utils
 Requires:	polkit >= 0.97
 Requires:	systemd-units >= 38
@@ -114,7 +115,7 @@ Requires:	gtk-doc-common
 Obsoletes:	%{orig_name}-apidocs
 Obsoletes:	DeviceKit-power-apidocs
 Obsoletes:	UPower-apidocs
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
@@ -128,6 +129,7 @@ Dokumentacja API UPower.
 %setup -q -n %{orig_name}-%{version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__gtkdocize}
