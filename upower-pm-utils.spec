@@ -115,9 +115,7 @@ Requires:	gtk-doc-common
 Obsoletes:	%{orig_name}-apidocs
 Obsoletes:	DeviceKit-power-apidocs
 Obsoletes:	UPower-apidocs
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 UPower API documentation.
