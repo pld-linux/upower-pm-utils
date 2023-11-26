@@ -5,7 +5,7 @@ Summary:	Power management service with pm-utils backend
 Summary(pl.UTF-8):	Usługa zarządzania energią z wykorzystaniem pm-utils
 Name:		%{orig_name}-pm-utils
 Version:	0.9.23
-Release:	11
+Release:	12
 Epoch:		1
 License:	GPL v2+
 Group:		Libraries

@@ -14,7 +14,7 @@ index 6adc5c4..b7f11a9 100755
 --- a/src/linux/integration-test
 +++ b/src/linux/integration-test
 @@ -458,6 +458,39 @@ class Tests(unittest.TestCase):
-         self.assertEqual(self.get_dbus_display_property('WarningLevel'), UP_DEVICE_LEVEL_NONE)
+         self.assertEqual(self.get_dbus_property('OnLowBattery'), False)
          self.stop_daemon()
  
 +    def test_battery_overfull(self):
