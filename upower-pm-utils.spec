@@ -1,11 +1,14 @@
 # NOTE: this package is the last version of upower from 0.9.x series, compatible with pm-utils
+#
+# pm-utils is dead upstream since 2010
+#
 %define		orig_name	upower
 
 Summary:	Power management service with pm-utils backend
 Summary(pl.UTF-8):	Usługa zarządzania energią z wykorzystaniem pm-utils
 Name:		%{orig_name}-pm-utils
 Version:	0.9.23
-Release:	12
+Release:	12.1
 Epoch:		1
 License:	GPL v2+
 Group:		Libraries
@@ -43,8 +46,6 @@ Requires:	pm-utils
 Requires:	polkit >= 0.97
 Requires:	systemd-units >= 38
 Requires:	udev-glib >= 1:147
-Provides:	%{orig_name} = %{epoch}:%{version}-%{release}
-Obsoletes:	%{orig_name}
 Obsoletes:	DeviceKit-power < 0.15
 Obsoletes:	UPower < 0.9.8-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -66,7 +67,6 @@ Group:		Libraries
 Requires:	dbus-glib >= 0.76
 Requires:	dbus-libs >= 1.0.0
 Requires:	glib2 >= 1:2.22.0
-Provides:	%{orig_name}-libs = %{epoch}:%{version}-%{release}
 
 %description libs
 UPower shared library.
@@ -82,8 +82,6 @@ Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Requires:	dbus-devel >= 1.0.0
 Requires:	dbus-glib-devel >= 0.76
 Requires:	glib2-devel >= 1:2.22.0
-Provides:	%{orig_name}-devel = %{epoch}:%{version}-%{release}
-Obsoletes:	%{orig_name}-devel
 Obsoletes:	DeviceKit-power-devel
 Obsoletes:	UPower-devel
 
@@ -97,9 +95,7 @@ Pliki nagłówkowe biblioteki UPower.
 Summary:	Static UPower library
 Summary(pl.UTF-8):	Statyczna biblioteka UPower
 Group:		Development/Libraries
-Requires:	%{orig_name}-devel = %{epoch}:%{version}-%{release}
-Provides:	%{orig_name}-static = %{epoch}:%{version}-%{release}
-Obsoletes:	%{orig_name}-static
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description static
 Static UPower library.
@@ -112,7 +108,6 @@ Summary:	UPower API documentation
 Summary(pl.UTF-8):	Dokumentacja API UPower
 Group:		Documentation
 Requires:	gtk-doc-common
-Obsoletes:	%{orig_name}-apidocs
 Obsoletes:	DeviceKit-power-apidocs
 Obsoletes:	UPower-apidocs
 BuildArch:	noarch
